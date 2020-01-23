@@ -101,8 +101,6 @@ export NVM_DIR="/Users/matheuslima/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 export PATH=/usr/local/bin:$PATH
 
-export GITHUB_ACCESS_TOKEN=8b3f10057bf19d947433bcc10fda0ba4a1069285
-
 source ~/.bash_profile
 
 
