@@ -6,6 +6,9 @@ Plug 'arcticicestudio/nord-vim'
 
 "nice status bar
 Plug 'vim-airline/vim-airline'
+let g:airline#extensions#tabline#enabled = 1 "enable smart tabs
+let g:airline#extensions#tabline#formatter = 'unique_tail' "show just the name of the files
+let g:airline#extensions#tabline#left_sep = ' ' "removing default separator
 
 "close (, [ and { automatically
 Plug 'jiangmiao/auto-pairs'
@@ -29,11 +32,13 @@ let g:coc_global_extensions = ['coc-tsserver', 'coc-json']
 "source tree
 Plug 'scrooloose/nerdtree'
 let g:NERDTreeMinimalUI=1 "disable display of ? text and bookmarks
-Plug 'ryanoasis/vim-devicons'
+let g:NERDTreeQuitOnOpen = 1 "always close nerdtree when a file is opened
+Plug 'ryanoasis/vim-devicons' "better icons
 
 call plug#end()
 
 set encoding=UTF-8                  "UTF-8
+set nocompatible                    "use vim settings instead of vi's
 colorscheme nord                    "nord theme
 set guifont=Hack\ Nerd\ Font:h14    "Hack Nerd Font
 set background=dark                 "set dark mode
@@ -42,6 +47,7 @@ set tabstop=2                       "number of visual spaces per TAB
 set softtabstop=2                   "number of spaces in tab when editing
 set expandtab                       "tabs are spaces
 set number                          "show line numbers
+set relativenumber                  "show relative numbers instead of absolute
 set cursorline                      "highlight current line
 set showcmd                         "show command in bottom bar
 set showmatch                       "highlight matching [{()}]
