@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =4
+let g:netrw_dirhist_4='/Users/matheuslima/Applications/ink/src'
+let g:netrw_dirhist_3='/Users/matheuslima/Applications/ink'
+let g:netrw_dirhist_2='/Users/matheuslima/Applications/ink/src'
+let g:netrw_dirhist_1='/Users/matheuslima/Applications/ink'
+let g:netrw_dirhist_0='/Users/matheuslima/Applications/ink/src'
+let g:netrw_dirhist_9='/Users/matheuslima/Applications/ink'
+let g:netrw_dirhist_8='/Users/matheuslima/Applications/ink/src/components'
+let g:netrw_dirhist_7='/Users/matheuslima/Applications/ink/src'
+let g:netrw_dirhist_6='/Users/matheuslima/Applications/ink/src/components/Alert'
+let g:netrw_dirhist_5='/Users/matheuslima/Applications/ink'

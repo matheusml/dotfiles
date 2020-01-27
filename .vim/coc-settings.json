@@ -1,0 +1,8 @@
+{
+  "coc.preferences.colorSupport": true,
+  "coc.preferences.formatOnSaveFiletypes": ["typescript", "typescriptreact"],
+  "tslint.autoFixOnSave": true,
+  "eslint.enable": true,
+  "eslint.filetypes": ["javascript", "javascriptreact"],
+  "eslint.autoFixOnSave": true
+}

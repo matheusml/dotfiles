@@ -10,9 +10,6 @@ let g:airline#extensions#tabline#enabled = 1 "enable smart tabs
 let g:airline#extensions#tabline#formatter = 'unique_tail' "show just the name of the files
 let g:airline#extensions#tabline#left_sep = ' ' "removing default separator
 
-"close (, [ and { automatically
-Plug 'jiangmiao/auto-pairs'
-
 "typescript and tsx syntax
 Plug 'leafgarland/typescript-vim'
 Plug 'ianks/vim-tsx'
@@ -27,7 +24,7 @@ Plug 'junegunn/fzf.vim'
 
 "code autocomplete
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-let g:coc_global_extensions = ['coc-tsserver', 'coc-json']
+let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-json', 'coc-eslint', 'coc-prettier']
 
 "source tree
 Plug 'scrooloose/nerdtree'
@@ -39,14 +36,16 @@ call plug#end()
 
 set encoding=UTF-8                  "UTF-8
 set nocompatible                    "use vim settings instead of vi's
+filetype plugin on                  "minimal config
 colorscheme nord                    "nord theme
-set guifont=Hack\ Nerd\ Font:h14    "Hack Nerd Font
+set guifont=Hack\ Nerd\ Font:h16    "Hack Nerd Font
 set background=dark                 "set dark mode
 syntax enable                       "enable syntax processing
 set tabstop=2                       "number of visual spaces per TAB
 set softtabstop=2                   "number of spaces in tab when editing
 set expandtab                       "tabs are spaces
 set number                          "show line numbers
+set autoindent                      "maintain indent of the current line
 set relativenumber                  "show relative numbers instead of absolute
 set cursorline                      "highlight current line
 set showcmd                         "show command in bottom bar
@@ -59,26 +58,39 @@ set wildmenu                        "display command line's tab complete options
 set ignorecase                      "ignore case when searching
 set smartcase                       "unless you type a capital
 
-"maping previous and next buffers
-nmap <C-K> :bprev<CR>
-nmap <C-J> :bnext<CR>
-nmap <C-T> :vert sb#<CR> 
+"maping the ESC key to jk
+inoremap jk <Esc>
 
-"remaping CTRL+P to file search
+"mode between split windows easily
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+"maping previous, next and delete buffers
+nmap <C-b> :bprev<CR>
+nmap <C-n> :bnext<CR>
+nmap <C-x> :bdelete<CR>
+
+"split buffers vertically
+nmap <C-t> :vert sb#<CR> 
+
+"files search
 nmap <C-p> :GFiles<CR>
 
-"remaping CTRL+F to text search
+"text search inside files
 nmap <C-f> :Rg<CR>
 
-"remaping CTRL+] to NERDtreeToggle
+"open source tree
 nmap <C-]> :NERDTreeToggle<CR>
 
-"remaping CTRL+[ to NERDtreeFind
+"open source tree on current file 
 nmap <C-[> :NERDTreeFind<CR>
 
 "removing the help banner from netrw
 let g:netrw_banner = 0
 
+"----
 "---- BEGIN COC SETUP
 "----
 
@@ -221,6 +233,9 @@ inoremap <silent><expr> <Tab>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<Tab>" :
       \ coc#refresh()
+
+"setup prettier command
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 "----
 "---- END COC SETUP
