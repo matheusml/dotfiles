@@ -2,7 +2,7 @@
 call plug#begin('~/.vim/plugged') 
 
 "theme
-Plug 'arcticicestudio/nord-vim'
+Plug 'arcticicestudio/nord-vim' 
 
 "nice status bar
 Plug 'vim-airline/vim-airline'
@@ -23,32 +23,34 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 "code autocomplete
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'releae'}
 let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-json', 'coc-eslint', 'coc-prettier']
 
 "source tree
 Plug 'scrooloose/nerdtree'
 let g:NERDTreeMinimalUI=1 "disable display of ? text and bookmarks
 let g:NERDTreeQuitOnOpen = 1 "always close nerdtree when a file is opened
+let g:NERDTreeWinSize=50 "increasing window size
 Plug 'ryanoasis/vim-devicons' "better icons
 
 call plug#end()
 
+"theme related
+colorscheme nord                    "colorschme
+set guifont=Hack\ Nerd\ Font:h20    "Hack Nerd Font
+set background=dark                 "set dark mode
+set termguicolors                   "proper colors for the theme
+syntax on                           "enable syntax processing
+
 set encoding=UTF-8                  "UTF-8
 set nocompatible                    "use vim settings instead of vi's
 filetype plugin on                  "minimal config
-colorscheme nord                    "nord theme
-set guifont=Hack\ Nerd\ Font:h16    "Hack Nerd Font
-set background=dark                 "set dark mode
-syntax enable                       "enable syntax processing
-set tabstop=2                       "number of visual spaces per TAB
-set softtabstop=2                   "number of spaces in tab when editing
 set expandtab                       "tabs are spaces
 set number                          "show line numbers
-set autoindent                      "maintain indent of the current line
 set relativenumber                  "show relative numbers instead of absolute
 set cursorline                      "highlight current line
 set showcmd                         "show command in bottom bar
+set inccommand=split                "show a previous of the result of a command
 set showmatch                       "highlight matching [{()}]
 set incsearch                       "search as characters are entered
 set hlsearch                        "highlight matches
@@ -60,6 +62,8 @@ set smartcase                       "unless you type a capital
 
 "maping the ESC key to jk
 inoremap jk <Esc>
+
+nnoremap <Esc> <NOP>
 
 "mode between split windows easily
 nnoremap <C-h> <C-w>h
@@ -89,6 +93,11 @@ nmap <C-[> :NERDTreeFind<CR>
 
 "removing the help banner from netrw
 let g:netrw_banner = 0
+
+" by default .ts file are not identified as typescript and .tsx files are not
+" identified as typescript react file, so add following
+au BufNewFile,BufRead *.ts setlocal filetype=typescript
+au BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
 
 "----
 "---- BEGIN COC SETUP
@@ -241,8 +250,3 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFile
 "---- END COC SETUP
 "----
 
-
-"maximize on start
-if has("gui_running")
-  set lines=999 columns=999
-endif
