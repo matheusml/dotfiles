@@ -2,7 +2,7 @@
 call plug#begin('~/.vim/plugged') 
 
 "theme
-Plug 'arcticicestudio/nord-vim' 
+Plug 'arcticicestudio/nord-vim'
 
 "nice status bar
 Plug 'vim-airline/vim-airline'
@@ -10,13 +10,10 @@ let g:airline#extensions#tabline#enabled = 1 "enable smart tabs
 let g:airline#extensions#tabline#formatter = 'unique_tail' "show just the name of the files
 let g:airline#extensions#tabline#left_sep = ' ' "removing default separator
 
-"typescript and tsx syntax
-Plug 'leafgarland/typescript-vim'
-Plug 'ianks/vim-tsx'
-
-"javascript and jsx syntax
+"javascript, typescript and jsx syntax
 Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
 
 "find files/text (both brew install fzf and ripgrep are required)
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -26,6 +23,14 @@ Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'releae'}
 let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-json', 'coc-eslint', 'coc-prettier']
 
+"auto close tags
+Plug 'alvan/vim-closetag'
+let g:closetag_filenames = '*.html,*.jsx,*.tsx'
+let g:closetag_regions = {
+    \ 'typescript.tsx': 'jsxRegion,tsxRegion',
+    \ 'javascript.jsx': 'jsxRegion',
+    \ }
+
 "source tree
 Plug 'scrooloose/nerdtree'
 let g:NERDTreeMinimalUI=1 "disable display of ? text and bookmarks
@@ -33,10 +38,15 @@ let g:NERDTreeQuitOnOpen = 1 "always close nerdtree when a file is opened
 let g:NERDTreeWinSize=50 "increasing window size
 Plug 'ryanoasis/vim-devicons' "better icons
 
+"show indent lines
+Plug 'Yggdroot/indentLine'
+let g:indentLine_fileTypeExclude=['help']
+let g:indentLine_bufNameExclude=['NERD_tree.*']
+
 call plug#end()
 
 "theme related
-colorscheme nord                    "colorschme
+colorscheme nord                    "theme
 set guifont=Hack\ Nerd\ Font:h20    "Hack Nerd Font
 set background=dark                 "set dark mode
 set termguicolors                   "proper colors for the theme
@@ -44,7 +54,7 @@ syntax on                           "enable syntax processing
 
 set encoding=UTF-8                  "UTF-8
 set nocompatible                    "use vim settings instead of vi's
-filetype plugin on                  "minimal config
+filetype plugin indent on           "minimal config
 set expandtab                       "tabs are spaces
 set number                          "show line numbers
 set relativenumber                  "show relative numbers instead of absolute
@@ -60,8 +70,16 @@ set wildmenu                        "display command line's tab complete options
 set ignorecase                      "ignore case when searching
 set smartcase                       "unless you type a capital
 
+set tabstop=2                       "size of a hard tabstop
+set expandtab                       "always use spaces instead of tabs
+set shiftwidth=2                    "size of an indent
+
+"open easily vim config
+nnoremap <leader>ev :e ~/.config/nvim/init.vim<CR>
+nnoremap <leader>sv :source ~/.config/nvim/init.vim<CR>
+
 "maping the ESC key to jk
-inoremap jk <Esc>
+inoremap jj <Esc>
 
 nnoremap <Esc> <NOP>
 
@@ -94,10 +112,35 @@ nmap <C-[> :NERDTreeFind<CR>
 "removing the help banner from netrw
 let g:netrw_banner = 0
 
-" by default .ts file are not identified as typescript and .tsx files are not
-" identified as typescript react file, so add following
-au BufNewFile,BufRead *.ts setlocal filetype=typescript
-au BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
+"set filetypes as typescript.tsx
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
+
+"create floating window for fzf search
+function! CreateCenteredFloatingWindow()
+    let width = min([&columns - 4, max([80, &columns - 20])])
+    let height = min([&lines - 4, max([20, &lines - 10])])
+    let top = ((&lines - height) / 2) - 1
+    let left = (&columns - width) / 2
+    let opts = {'relative': 'editor', 'row': top, 'col': left, 'width': width, 'height': height, 'style': 'minimal'}
+
+    let top = "╭" . repeat("─", width - 2) . "╮"
+    let mid = "│" . repeat(" ", width - 2) . "│"
+    let bot = "╰" . repeat("─", width - 2) . "╯"
+    let lines = [top] + repeat([mid], height - 2) + [bot]
+    let s:buf = nvim_create_buf(v:false, v:true)
+    call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
+    call nvim_open_win(s:buf, v:true, opts)
+    set winhl=Normal:Floating
+    let opts.row += 1
+    let opts.height -= 2
+    let opts.col += 2
+    let opts.width -= 4
+    call nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
+    au BufWipeout <buffer> exe 'bw '.s:buf
+endfunction
+
+let g:fzf_layout = { 'window': 'call CreateCenteredFloatingWindow()' }
+
 
 "----
 "---- BEGIN COC SETUP
