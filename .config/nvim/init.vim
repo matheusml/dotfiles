@@ -4,11 +4,19 @@ call plug#begin('~/.vim/plugged')
 "theme
 Plug 'arcticicestudio/nord-vim'
 
-"nice status bar
-Plug 'vim-airline/vim-airline'
-let g:airline#extensions#tabline#enabled = 1 "enable smart tabs
-let g:airline#extensions#tabline#formatter = 'unique_tail' "show just the name of the files
-let g:airline#extensions#tabline#left_sep = ' ' "removing default separator
+"status bar
+Plug 'itchyny/lightline.vim'
+Plug 'itchyny/vim-gitbranch'
+let g:lightline = {
+      \ 'colorscheme': 'nord',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'gitbranch#name'
+      \ },
+      \ }
 
 "javascript, typescript and jsx syntax
 Plug 'pangloss/vim-javascript'
@@ -20,7 +28,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 "code autocomplete
-Plug 'neoclide/coc.nvim', {'branch': 'releae'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-json', 'coc-eslint', 'coc-prettier']
 
 "auto close tags
@@ -36,18 +44,15 @@ Plug 'scrooloose/nerdtree'
 let g:NERDTreeMinimalUI=1 "disable display of ? text and bookmarks
 let g:NERDTreeQuitOnOpen = 1 "always close nerdtree when a file is opened
 let g:NERDTreeWinSize=50 "increasing window size
-Plug 'ryanoasis/vim-devicons' "better icons
-
-"show indent lines
-Plug 'Yggdroot/indentLine'
-let g:indentLine_fileTypeExclude=['help']
-let g:indentLine_bufNameExclude=['NERD_tree.*']
+let NERDTreeShowLineNumbers=1 "show line numbers on NERDTree
+autocmd FileType nerdtree setlocal relativenumber "the line numbers are relative
+let NERDTreeShowHidden=1 "show dotfiles
 
 call plug#end()
 
 "theme related
-colorscheme nord                    "theme
-set guifont=Hack\ Nerd\ Font:h20    "Hack Nerd Font
+colorscheme nord
+set guifont=JetBrains\ Mono\:h24    "JetBrains font
 set background=dark                 "set dark mode
 set termguicolors                   "proper colors for the theme
 syntax on                           "enable syntax processing
@@ -74,6 +79,9 @@ set tabstop=2                       "size of a hard tabstop
 set expandtab                       "always use spaces instead of tabs
 set shiftwidth=2                    "size of an indent
 
+set splitbelow                      "new horizontal splits are on the bottom
+set splitright                      "new vertical splits are on the right
+
 "open easily vim config
 nnoremap <leader>ev :e ~/.config/nvim/init.vim<CR>
 nnoremap <leader>sv :source ~/.config/nvim/init.vim<CR>
@@ -81,33 +89,30 @@ nnoremap <leader>sv :source ~/.config/nvim/init.vim<CR>
 "maping the ESC key to jk
 inoremap jj <Esc>
 
-nnoremap <Esc> <NOP>
-
 "mode between split windows easily
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-"maping previous, next and delete buffers
-nmap <C-b> :bprev<CR>
-nmap <C-n> :bnext<CR>
-nmap <C-x> :bdelete<CR>
+"maping buffer split
+nnoremap <leader>v :vsplit<CR>
+nnoremap <leader>x :split<CR>
 
-"split buffers vertically
-nmap <C-t> :vert sb#<CR> 
+" switch between current and last buffer
+nnoremap <leader>. <c-^>
 
 "files search
-nmap <C-p> :GFiles<CR>
+nnoremap <leader>p :GFiles<CR>
 
 "text search inside files
-nmap <C-f> :Rg<CR>
+nnoremap <leader>f :Rg<CR>
 
 "open source tree
-nmap <C-]> :NERDTreeToggle<CR>
+nnoremap <leader>] :NERDTreeToggle<CR>
 
 "open source tree on current file 
-nmap <C-[> :NERDTreeFind<CR>
+nnoremap <leader>[ :NERDTreeFind<CR>
 
 "removing the help banner from netrw
 let g:netrw_banner = 0
@@ -141,6 +146,20 @@ endfunction
 
 let g:fzf_layout = { 'window': 'call CreateCenteredFloatingWindow()' }
 
+"dim inactive window
+hi def Dim cterm=none ctermbg=none ctermfg=242
+
+function! s:DimInactiveWindow()
+    syntax region Dim start='' end='$$$end$$$'
+endfunction
+
+function! s:UndimActiveWindow()
+    ownsyntax
+endfunction
+
+autocmd WinEnter * call s:UndimActiveWindow()
+autocmd BufEnter * call s:UndimActiveWindow()
+autocmd WinLeave * call s:DimInactiveWindow()
 
 "----
 "---- BEGIN COC SETUP
@@ -214,10 +233,6 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
 
-" Remap for format selected region
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
@@ -256,24 +271,6 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-" Using CocList
-" Show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" Show commands
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 " use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
