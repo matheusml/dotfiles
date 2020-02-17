@@ -4,6 +4,10 @@ call plug#begin('~/.vim/plugged')
 "theme
 Plug 'arcticicestudio/nord-vim'
 
+"fancy startup screen
+Plug 'mhinz/vim-startify'
+let g:startify_bookmarks = ['~/Applications/ink', '~/carta-web']
+
 "status bar
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
@@ -26,6 +30,9 @@ Plug 'peitalin/vim-jsx-typescript'
 "find files/text (both brew install fzf and ripgrep are required)
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+
+"editor config
+Plug 'editorconfig/editorconfig-vim'
 
 "code autocomplete
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -60,6 +67,7 @@ syntax on                           "enable syntax processing
 set encoding=UTF-8                  "UTF-8
 set nocompatible                    "use vim settings instead of vi's
 filetype plugin indent on           "minimal config
+set clipboard=unnamedplus           "use system's clipboard
 set expandtab                       "tabs are spaces
 set number                          "show line numbers
 set relativenumber                  "show relative numbers instead of absolute
@@ -83,11 +91,11 @@ set splitbelow                      "new horizontal splits are on the bottom
 set splitright                      "new vertical splits are on the right
 
 "open easily vim config
-nnoremap <leader>ev :e ~/.config/nvim/init.vim<CR>
+nnoremap <leader>ev :vsplit ~/.config/nvim/init.vim<CR>
 nnoremap <leader>sv :source ~/.config/nvim/init.vim<CR>
 
 "maping the ESC key to jk
-inoremap jj <Esc>
+inoremap jk <Esc>
 
 "mode between split windows easily
 nnoremap <C-h> <C-w>h
