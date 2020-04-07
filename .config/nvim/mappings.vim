@@ -1,9 +1,8 @@
+"to map CAPS to be both CTRL and ESC read this: https://medium.com/@pechyonkin/how-to-map-capslock-to-control-and-escape-on-mac-60523a64022b
+
 "open easily vim config
 nnoremap <leader>ev :vsplit ~/.config/nvim/init.vim<CR>
 nnoremap <leader>sv :source ~/.config/nvim/init.vim<CR>
-
-"maping the ESC key to jk
-inoremap jk <Esc>
 
 "mode between split windows easily
 nnoremap <C-h> <C-w>h

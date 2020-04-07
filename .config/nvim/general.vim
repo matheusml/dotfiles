@@ -1,5 +1,6 @@
 set encoding=UTF-8                  "UTF-8
 set nocompatible                    "use vim settings instead of vi's
+set autoread                        "reload file if changed outside vim
 filetype plugin indent on           "minimal config
 set clipboard=unnamedplus           "use system's clipboard
 set expandtab                       "tabs are spaces

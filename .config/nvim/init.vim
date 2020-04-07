@@ -4,10 +4,6 @@ call plug#begin('~/.vim/plugged')
 "theme
 Plug 'arcticicestudio/nord-vim'
 
-"fancy startup screen
-Plug 'mhinz/vim-startify'
-let g:startify_bookmarks = ['~/Applications/ink', '~/carta-web']
-
 "status bar
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
@@ -45,6 +41,12 @@ let g:closetag_regions = {
     \ 'typescript.tsx': 'jsxRegion,tsxRegion',
     \ 'javascript.jsx': 'jsxRegion',
     \ }
+
+"markdown preview
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+
+"git plugin
+Plug 'tpope/vim-fugitive'
 
 "source tree
 Plug 'scrooloose/nerdtree'
