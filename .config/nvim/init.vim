@@ -7,6 +7,7 @@ Plug 'arcticicestudio/nord-vim'
 "status bar
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
+
 let g:lightline = {
       \ 'colorscheme': 'nord',
       \ 'active': {
@@ -18,10 +19,14 @@ let g:lightline = {
       \ },
       \ }
 
-"javascript, typescript and jsx syntax
-Plug 'pangloss/vim-javascript'
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
+"general syntax
+Plug 'sheerun/vim-polyglot'
+
+"python indent plugin
+Plug 'Vimjas/vim-python-pep8-indent'
+
+"hex colors
+Plug 'ap/vim-css-color'
 
 "find files/text (both brew install fzf and ripgrep are required)
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -32,7 +37,7 @@ Plug 'editorconfig/editorconfig-vim'
 
 "code autocomplete
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-json', 'coc-eslint', 'coc-prettier']
+let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-json', 'coc-eslint', 'coc-prettier', 'coc-python'] "for coc-python, it's required a $ pip install jedi
 
 "auto close tags
 Plug 'alvan/vim-closetag'

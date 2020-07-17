@@ -30,4 +30,3 @@ let g:netrw_banner = 0
 
 "set filetypes as typescript.tsx
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
-

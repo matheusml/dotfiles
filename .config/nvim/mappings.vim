@@ -20,6 +20,9 @@ nnoremap <leader>. <c-^>
 "files search
 nnoremap <leader>p :GFiles<CR>
 
+"git blame
+nnoremap <leader>g :Gblame<CR>
+
 "text search inside files
 nnoremap <leader>f :Rg<CR>
 

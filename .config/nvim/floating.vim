@@ -22,5 +22,5 @@ function! CreateCenteredFloatingWindow()
     au BufWipeout <buffer> exe 'bw '.s:buf
 endfunction
 
-let g:fzf_layout = { 'window': 'call CreateCenteredFloatingWindow()' }
+"let g:fzf_layout = { 'window': 'call CreateCenteredFloatingWindow()' }
 
