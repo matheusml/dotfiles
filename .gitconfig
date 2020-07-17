@@ -5,3 +5,6 @@
 
 [core]
 	editor = nano
+
+[alias]
+	lg = log --pretty='%Cred%h%Creset | %C(yellow)%d%Creset %s %Cgreen(%cr)%Creset %C(cyan)[%an]%Creset' --graph

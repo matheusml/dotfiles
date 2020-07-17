@@ -28,3 +28,6 @@ prompt_context(){}
 export PATH="/usr/local/opt/postgresql@9.6/bin:$PATH"
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+# Created by `userpath` on 2020-07-16 21:46:15
+export PATH="$PATH:/Users/matheuslima/.local/bin"

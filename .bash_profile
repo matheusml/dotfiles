@@ -7,4 +7,4 @@ export NVM_DIR="/Users/matheuslima/.nvm"
 . /Users/matheuslima/.cartawebrc
 
 alias mvim='/Applications/MacVim.app/Contents/bin/mvim'
-alias vim=mvim
+alias vim=nvim
