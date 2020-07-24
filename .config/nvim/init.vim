@@ -50,9 +50,6 @@ let g:closetag_regions = {
 "markdown preview
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 
-"git plugin
-Plug 'tpope/vim-fugitive'
-
 "source tree
 Plug 'scrooloose/nerdtree'
 let g:NERDTreeMinimalUI=1 "disable display of ? text and bookmarks
