@@ -22,6 +22,9 @@ let g:lightline = {
 "general syntax
 Plug 'sheerun/vim-polyglot'
 
+"markdown syntax
+Plug 'plasticboy/vim-markdown'
+
 "python indent plugin
 Plug 'Vimjas/vim-python-pep8-indent'
 
@@ -37,7 +40,7 @@ Plug 'editorconfig/editorconfig-vim'
 
 "code autocomplete
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-json', 'coc-eslint', 'coc-prettier', 'coc-python'] "for coc-python, it's required a $ pip install jedi
+let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-json', 'coc-eslint', 'coc-prettier', 'coc-python', 'coc-flow'] "for coc-python, it's required a $ pip install jedi
 
 "auto close tags
 Plug 'alvan/vim-closetag'
@@ -49,6 +52,10 @@ let g:closetag_regions = {
 
 "markdown preview
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+
+"git plugin
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
 
 "source tree
 Plug 'scrooloose/nerdtree'
@@ -66,4 +73,3 @@ source ~/.config/nvim/coc.vim
 source ~/.config/nvim/theme.vim
 source ~/.config/nvim/mappings.vim
 source ~/.config/nvim/dim.vim
-source ~/.config/nvim/floating.vim

@@ -10,11 +10,14 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+"maping buffers list
+nnoremap <leader>b :Buffers<CR>
+
 "maping buffer split
 nnoremap <leader>v :vsplit<CR>
 nnoremap <leader>x :split<CR>
 
-" switch between current and last buffer
+"switch between current and last buffer
 nnoremap <leader>. <c-^>
 
 "files search
