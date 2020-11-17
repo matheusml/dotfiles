@@ -6,6 +6,7 @@
   "tslint.autoFixOnSave": true,
   "eslint.filetypes": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
   "eslint.autoFixOnSave": true,
-  "typescript.validate.enable": false,
-  "python.linting.pep8Enabled": false
+  "python.linting.pylintEnabled": false,
+  "python.jediMemoryLimit": -1,
+  "python.linting.flake8Enabled": true
 }
