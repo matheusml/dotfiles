@@ -22,9 +22,6 @@ let g:lightline = {
 "general syntax
 Plug 'sheerun/vim-polyglot'
 
-"markdown syntax
-Plug 'plasticboy/vim-markdown'
-
 "python indent plugin
 Plug 'Vimjas/vim-python-pep8-indent'
 
@@ -40,7 +37,7 @@ Plug 'editorconfig/editorconfig-vim'
 
 "code autocomplete
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-json', 'coc-eslint', 'coc-prettier', 'coc-python', 'coc-flow'] "for coc-python, it's required a $ pip install jedi
+let g:coc_global_extensions = ['coc-tsserver', 'coc-json', 'coc-eslint', 'coc-prettier', 'coc-python', 'coc-flow', 'coc-java'] "for coc-python, it's required a $ pip install jedi
 
 "auto close tags
 Plug 'alvan/vim-closetag'
@@ -49,9 +46,6 @@ let g:closetag_regions = {
     \ 'typescript.tsx': 'jsxRegion,tsxRegion',
     \ 'javascript.jsx': 'jsxRegion',
     \ }
-
-"markdown preview
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 
 "git plugin
 Plug 'airblade/vim-gitgutter'
@@ -68,7 +62,7 @@ let NERDTreeShowHidden=1 "show dotfiles
 
 "git indications for source tree
 Plug 'Xuyuanp/nerdtree-git-plugin'
-let g:NERDTreeIndicatorMapCustom = {
+let g:NERDTreeGitStatusIndicatorMapCustom = {
     \ "Modified"  : "✹",
     \ "Staged"    : "✚",
     \ "Untracked" : "✭",
@@ -109,7 +103,15 @@ set shiftwidth=2                    "size of an indent
 
 set splitbelow                      "new horizontal splits are on the bottom
 set splitright                      "new vertical splits are on the right
-"
+
+
+"avoid vim from wraping text at 80 column width mark
+set nowrap
+set wrapmargin=0
+set textwidth=0
+set formatoptions-=t
+set colorcolumn=
+
 "theme related
 colorscheme nord 
 set guifont=MonoLista:h14           "font

@@ -3,9 +3,8 @@
   "coc.preferences.formatOnSaveFiletypes": ["typescript", "typescriptreact", "markdown", "javascript", "javascriptreact", "python"],
   "prettier.eslintIntegration": false,
   "tsserver.enableJavascript": false,
-  "tslint.autoFixOnSave": true,
-  "eslint.filetypes": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
   "eslint.autoFixOnSave": true,
+  "eslint.validate": ["typescript", "typescriptreact", "javascript", "javascriptreact"],
   "python.linting.pylintEnabled": false,
   "python.jediMemoryLimit": -1,
   "python.linting.flake8Enabled": true
